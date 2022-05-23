@@ -10,7 +10,7 @@
 #include <chrono>
 #include "object.h"
 class Unit : public Object {
-public:
+private:
     int hp;
     int stuned;
     bool enemy;
@@ -27,6 +27,20 @@ public:
     int range5;
     bool dead;
 
+    void get_stuned(int n) {
+        stuned += n;
+    }
+
+    bool get_dmg(int damage) {
+        if (hp - damage <= 0) {
+            hp = 0;
+            return true;
+        } else {
+            hp -= damage;
+            return false;
+        }
+    }
+public:
     virtual bool first_skill(Unit* target){}
     virtual bool second_skill(Unit* target){}
     virtual bool attack(Unit* target){}
@@ -39,21 +53,6 @@ public:
         stuned = 0;
         dead = false;
     }
-
-    void get_stuned(int n) {
-        stuned += n;
-    }
-    bool get_dmg(int damage) {
-        if (hp - damage <= 0) {
-            hp = 0;
-            return true;
-        } else {
-            hp -= damage;
-            return false;
-        }
-    }
-
-
     void one_turn_tic() {
         if (max_hp >= hp + hp_reg) {
             hp += hp_reg;

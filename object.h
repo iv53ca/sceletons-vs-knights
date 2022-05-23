@@ -9,6 +9,25 @@
 #include <random>
 #include <chrono>
 class Object {
+private:
+    QString sprite_now;
+    QString sprite_type_now;
+    QString sprite_object_now;
+    QString sprite_path;
+
+    void one_tenth_sec_tic() {
+        if (sprite_object_now != "s") {
+            if (sprite_now.toInt() + 1 <= 16) {
+                sprite_now.setNum(sprite_now.toInt() + 1);
+            } else {
+                sprite_now.setNum(1);
+            }
+            sprite_path = "sprites/" + sprite_object_now + "_" + sprite_type_now + "_" + sprite_now + ".PNG";
+        } else {
+            sprite_path = "sprites/" + sprite_type_now + "_" + sprite_now + ".PNG";
+        }
+    }
+
 public:
     int x;
     int y;
@@ -16,10 +35,7 @@ public:
     int cell_size = 128;
     int h;
     bool right;
-    QString sprite_now;
-    QString sprite_type_now;
-    QString sprite_object_now;
-    QString sprite_path;
+
 
     struct three_obj {
         int x;
@@ -36,18 +52,7 @@ public:
 
     std::queue<three_obj> draw_queue;
 
-    void one_tenth_sec_tic() {
-        if (sprite_object_now != "s") {
-            if (sprite_now.toInt() + 1 <= 16) {
-                sprite_now.setNum(sprite_now.toInt() + 1);
-            } else {
-                sprite_now.setNum(1);
-            }
-            sprite_path = "sprites/" + sprite_object_now + "_" + sprite_type_now + "_" + sprite_now + ".PNG";
-        } else {
-            sprite_path = "sprites/" + sprite_type_now + "_" + sprite_now + ".PNG";
-        }
-    }
+
     virtual void move(int dx, int dy) {
         x += dx;
         y += dy;
