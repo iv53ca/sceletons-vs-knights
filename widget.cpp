@@ -1,5 +1,8 @@
 #include "widget.h"
-#include "heroes.h"
+#include "unit.h"
+#include "object.h"
+#include "sceleton.h"
+#include "samurai.h"
 #include "ui_widget.h"
 #include <QRandomGenerator>
 #include <QUrl>

@@ -11,6 +11,8 @@
 #include "object.h"
 class Unit : public Object {
 private:
+
+public:
     int hp;
     int stuned;
     bool enemy;
@@ -27,20 +29,9 @@ private:
     int range5;
     bool dead;
 
-    void get_stuned(int n) {
-        stuned += n;
-    }
+    void get_stuned(int n);
 
-    bool get_dmg(int damage) {
-        if (hp - damage <= 0) {
-            hp = 0;
-            return true;
-        } else {
-            hp -= damage;
-            return false;
-        }
-    }
-public:
+    bool get_dmg(int damage);
     virtual bool first_skill(Unit* target){}
     virtual bool second_skill(Unit* target){}
     virtual bool attack(Unit* target){}
@@ -53,27 +44,7 @@ public:
         stuned = 0;
         dead = false;
     }
-    void one_turn_tic() {
-        if (max_hp >= hp + hp_reg) {
-            hp += hp_reg;
-        } else {
-            hp = max_hp;
-        }
-        if (max_mp >= mp + mp_reg) {
-            mp += mp_reg;
-        } else {
-            mp = max_mp;
-        }
-
-        if (stuned > 0) stuned--;
-        moves_left = moves_max;
-        attacked = false;
-    }
-    void control_move(int dx, int dy) {
-        if (dx + dy <= moves_left) {
-            moves_left -= abs(dx) + abs(dy);
-            move(dx * cell_size_s, dy * cell_size_s);
-        }
-    }
+    void one_turn_tic();
+    void control_move(int dx, int dy);
 };
 #endif

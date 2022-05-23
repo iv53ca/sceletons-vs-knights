@@ -12,6 +12,8 @@
 #include "unit.h"
 class Samurai : public Unit {
 private:
+
+public:
     Samurai(){
     moves_max = 10;
     range1 = 2;
@@ -28,33 +30,9 @@ private:
     dmg = 40;
     attacked = false;
     }
-public:
-    bool first_skill(Unit *target) {
-        if (target != NULL) {
-            if (mp >= 20) {
-                mp -= 20;
 
-                target->sprite_type_now = "getdmg";
-                target->sprite_now = "1";
-                return target->get_dmg(dmg * 2);
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-    bool attack(Unit *target) {
-        if (target != NULL) {
-            attacked = true;
-            dynamic_cast<Unit*>(target)->sprite_type_now = "getdmg";
-            dynamic_cast<Unit*>(target)->sprite_now = "1";
-            return target->get_dmg(dmg);
-        } else {
-            return false;
-        }
-
-    }
+    bool first_skill(Unit *target);
+    bool attack(Unit *target);
 
 };
 #endif

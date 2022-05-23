@@ -12,6 +12,8 @@
 #include "unit.h"
 class Skeleton : public Unit {
 private:
+
+public:
     Sceleton(){
     moves_max = 10;
     range1 = 1;
@@ -28,48 +30,10 @@ private:
     dmg = 50;
     attacked = false;
     }
-public:
-    bool first_skill(Unit *target) {
-        if (target != NULL) {
-            if (mp >= 20) {
-                mp -= 20;
+    bool first_skill(Unit *target);
 
-                target->sprite_type_now = "getdmg";
-                target->sprite_now = "1";
-                target->get_stuned(1);
-                return target->get_dmg(20);
-            } else {
-                return false;
-            }
-        }else {
-            return false;
-        }
-    }
+    bool second_skill();
 
-    bool second_skill() {
-        if (mp >= 20) {
-            mp -= 20;
-
-            if (hp + 50 < max_hp) {
-                hp += 50;
-            } else {
-                hp = max_hp;
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    bool attack(Unit *target) {
-        if (target != NULL) {
-            attacked = true;
-            dynamic_cast<Unit*>(target)->sprite_type_now = "getdmg";
-            dynamic_cast<Unit*>(target)->sprite_now = "1";
-            return target->get_dmg(dmg);
-        } else {
-            return false;
-        }
-    }
+    bool attack(Unit *target);
 };
 #endif
